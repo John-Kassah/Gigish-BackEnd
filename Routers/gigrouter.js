@@ -16,4 +16,4 @@ gigRouter.get('/viewGigs', authenticator, viewGig)
 gigRouter.delete('/deleteGig/:id', authenticator, deleteGig);
 
 // make the default export available globally
-export default gigRouter;
+export default gigRouter; 
