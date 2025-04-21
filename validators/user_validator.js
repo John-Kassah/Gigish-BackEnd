@@ -14,7 +14,7 @@ export const userLoginValidator = Joi.object({
     userName: Joi.string(),
     email: Joi.string(),
     password: Joi.string().required(),
-    role: Joi.string().valid('gigPoster', 'serviceProvider').required()
+    role: Joi.string().valid('gigPoster', 'serviceProvider')
 }).options({ abortEarly: false });
 
 
