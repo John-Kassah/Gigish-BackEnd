@@ -126,11 +126,7 @@ export const loginUser = async (req, res) => {
             return res.status(401).send(`The password you entered is incorrect`);
         }
 
-        // If the user exists and the password is correct, update the user info in the database with the new role info that was sent in the request body.
-        user.role = req.body.role; 
-        await user.save(); // Save the updated user to the database
-
-         // Remove the password and vertion field from the user object before sending the response
+        // If the user exists and the password is correct, remove the password and verification field from the user object before sending the response
          const userWithoutPassword = user._doc; // _doc is used to get the plain object representation of the mongoose document. This removes all mongooses specific fields and methods from the object and returns a plain object that can be sent as a response.
          delete userWithoutPassword.password; // Remove the password field
          delete userWithoutPassword.__v; // Remove the __v field
