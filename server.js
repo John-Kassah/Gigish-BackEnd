@@ -1,10 +1,10 @@
 import express from 'express';
 import userRouter from './Routers/user.router.js';
-import gigRouter from './Routers/gigrouter.js';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import cors from 'cors';
 import bidRouter from './Routers/bid.router.js';
+import gigRouter from './Routers/gigrouter.js';
 
 
 dotenv.config();
