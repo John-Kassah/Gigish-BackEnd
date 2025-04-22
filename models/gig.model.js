@@ -18,6 +18,10 @@ const gigSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    gigStartDate: {
+        type: Date,
+        required: true,
+    },
     gigImageUrl: {
         type: String,
     },
