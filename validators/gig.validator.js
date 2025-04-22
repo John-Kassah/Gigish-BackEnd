@@ -5,5 +5,6 @@ export const gigValidator = Joi.object({
     description: Joi.string().required(),
     gigProviderOfferPrice: Joi.number().required(),
     gigOfferOpenWindow: Joi.date().required(),
-    gigStartDate: Joi.date().required()
-}).options({ abortEarly: false });
+    gigStartDate: Joi.date().required(),
+    location: Joi.string.required(),
+}).options({ abortEarly: false });                      

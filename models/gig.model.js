@@ -1,3 +1,4 @@
+import { required } from "joi";
 import mongoose from "mongoose";
 import normalize from "normalize-mongoose";
 
@@ -21,6 +22,10 @@ const gigSchema = new mongoose.Schema({
     gigStartDate: {
         type: Date,
         required: true,
+    },
+    location: {
+        type: String,
+        required: true
     },
     gigImageUrl: {
         type: String,
