@@ -12,16 +12,16 @@ const userRouter = express.Router();
 userRouter.get('/getAllUsers/:id', authenticator, authorizationOfRole('admin'), getAllUsers);
 
 /* Mount get request on *get-A-UserWith-Id* endpoint */
-userRouter.get('/login' , parser.none()/*to parse multipart/form-data and attach fields to req,body*/, loginUser)
+userRouter.get('/login', parser.none()/*to parse multipart/form-data and attach fields to req,body*/, loginUser)
 
 // Mount post request on */addUser* endpoint
 userRouter.post('/addUser', parser.single('image'), registerUser);
 
 // Mount delete request on */deleteUser* endpoint
-userRouter.delete('/deleteUser', authenticator, authorizationOfRole('gigProvider', 'serviceProvider'), deleteUser);
+userRouter.delete('/deleteUser', authenticator, authorizationOfRole('gigPoster', 'serviceProvider'), deleteUser);
 
 // Mount patch request on */updateUser* endpoint
-userRouter.patch('/updateUser', authenticator, authorizationOfRole('gigProvider', 'serviceProvider'), updateUser);
+userRouter.patch('/updateUser', authenticator, authorizationOfRole('gigPoster', 'serviceProvider'), updateUser);
 
 // Mount patch request on */switchRole* endpoint
 userRouter.patch('/switchRole', authenticator, authorizationOfRole('gigPoster', 'serviceProvider'), switchRole);
