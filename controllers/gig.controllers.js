@@ -53,6 +53,7 @@ export const createGig = async (req, res) => {
             gigProviderOfferPrice: modelGig.gigProviderOfferPrice,
             gigOfferOpenWindow: modelGig.gigOfferOpenWindow,
             gigStartDate: modelGig.gigStartDate,
+            location: modelGig.location,
             gigImageUrl: modelGig.gigImageUrl,
             gigPoster: modelGig.gigPoster
         }
