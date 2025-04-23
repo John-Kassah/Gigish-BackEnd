@@ -12,7 +12,7 @@ const userRouter = express.Router();
 userRouter.get('/getAllUsers/:id', authenticator, authorizationOfRole('admin'), getAllUsers);
 
 /* Mount get request on *get-A-UserWith-Id* endpoint */
-userRouter.get('/login', parser.none()/*to parse multipart/form-data and attach fields to req,body*/, loginUser)
+userRouter.post('/login', parser.none()/*to parse multipart/form-data and attach fields to req,body*/, loginUser)
 
 // Mount post request on */addUser* endpoint
 userRouter.post('/addUser', parser.single('image'), registerUser);
