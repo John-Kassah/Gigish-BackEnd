@@ -103,16 +103,39 @@ export const viewGig = async (req, res) => {
 
     const viewGigsProvided = async (req, res) => {
         try {
+
             const allGigs = await gigModel.find({})
                 .populate({
                     path: 'gigPoster',
                     select: '-_id -email -role -gigs -createdAt -updatedAt -verificationToken -bids -__v' // Exclude these fields from the populated user
                 }).select('-createdAt -updatedAt') // Exclude these fields from the gig model;
+
             res.status(200).json({ message: "All Gigs provided were retrieved successfully", data: allGigs});
         } catch (error) {
             console.log(`This error was thrown in an attempt to retrieve all users: ${error.message}`);
             res.status(500).json({ message: `This error was thrown in an attempt to retrieve all users: ${error.message}` });
         }
+    }
+
+export const viewSingleGigbyId = async (req, res) => {
+    const gigsId = req.params.gigId
+    try {
+        const singleGig = await gigModel.findById({"id": gigsId})
+            .populate({
+                path: 'gigPoster',
+                select: '-_id -email -role -gigs -createdAt -updatedAt -verificationToken -bids -__v' // Exclude these fields from the populated user
+            }).select('-createdAt -updatedAt') // Exclude these fields from the gig model;
+
+        if (!singleGig) {
+            return res.status(404).json({ message: `User with ID: ${userId} was not found` });
+        }
+
+        res.status(200).json({ message: "The clicked gig was retrieved successfully", data: singleGig});
+
+    } catch (error) {
+        console.log(`This error was thrown in an attempt to retrieve all users: ${error.message}`);
+        res.status(500).json({ message: `This error was thrown in an attempt to retrieve all users: ${error.message}` });
+    }
     }
 
 export const deleteGig = async (req, res) => {
