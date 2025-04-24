@@ -120,7 +120,7 @@ export const viewGig = async (req, res) => {
 export const viewSingleGigbyId = async (req, res) => {
     const gigsId = req.params.gigId
     try {
-        const singleGig = await gigModel.findById({"id": gigsId})
+        const singleGig = await gigModel.findById(gigsId)
             .populate({
                 path: 'gigPoster',
                 select: '-_id -email -role -gigs -createdAt -updatedAt -verificationToken -bids -__v' // Exclude these fields from the populated user
