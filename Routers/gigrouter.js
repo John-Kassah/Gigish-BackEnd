@@ -1,6 +1,6 @@
 import express from 'express';
 import { authenticator } from '../middlewares/auth.js';
-import { createGig, deleteGig, viewGig } from '../controllers/gig.controllers.js';
+import { createGig, deleteGig, viewGig, viewSingleGigbyId } from '../controllers/gig.controllers.js';
 import { parser } from '../utils/singleImageUploader.js';
 
 
@@ -14,6 +14,9 @@ gigRouter.get('/viewGigs', authenticator, viewGig)
 
 // Mount delete request on */deleteGig* endpoint
 gigRouter.delete('/deleteGig/:id', authenticator, deleteGig);
+
+// Mount get request on */viewSingleGigbyId* endpoint
+gigRouter.get('/viewSingleGigbyId/:gigId', authenticator, viewSingleGigbyId)
 
 // make the default export available globally
 export default gigRouter; 
