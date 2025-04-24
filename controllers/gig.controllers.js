@@ -127,14 +127,14 @@ export const viewSingleGigbyId = async (req, res) => {
             }).select('-createdAt -updatedAt') // Exclude these fields from the gig model;
 
         if (!singleGig) {
-            return res.status(404).json({ message: `User with ID: ${userId} was not found` });
+            return res.status(404).json({ message: `User with ID: ${gigsId} was not found` });
         }
 
-        res.status(200).json({ message: "The clicked gig was retrieved successfully", data: singleGig});
+        return res.status(200).json({ message: "The clicked gig was retrieved successfully", data: singleGig});
 
     } catch (error) {
         console.log(`This error was thrown in an attempt to retrieve all users: ${error.message}`);
-        res.status(500).json({ message: `This error was thrown in an attempt to retrieve all users: ${error.message}` });
+        return res.status(500).json({ message: `This error was thrown in an attempt to retrieve all users: ${error.message}` });
     }
     }
 
