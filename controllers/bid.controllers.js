@@ -12,7 +12,7 @@ export const createBid = async (req, res) => {
         const newBid = await bidModel.create({
             serviceProviderBidPrice,
             bidGig: gigId,
-            bidGigPoster: userId
+            bidder: userId,
         });
 
         const sanitizedBid = {
@@ -69,7 +69,7 @@ export const viewBids = async (req, res) => {
                             select: '-createdAt -updatedAt -__v -gigBids'
                          })
                          .populate({
-                            path: 'gigPoster',
+                            path: 'bidder',
                          })
                                                 
                 if (!bids) {

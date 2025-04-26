@@ -8,7 +8,8 @@ const bidSchema = new mongoose.Schema({
     },
     bidder: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true,
     },
     bidStatus: {
         type: String,
@@ -22,11 +23,6 @@ const bidSchema = new mongoose.Schema({
     bidGig: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Gig',
-        required: true,
-    },
-    bidGigPoster: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
         required: true,
     }
 });
