@@ -95,10 +95,6 @@ export const viewBids = async (req, res) => {
                                                         {
                                                             path: 'bidGig',
                                                             select: 'name description gigProviderOffer gigBids'
-                                                        },
-                                                        {
-                                                            path: 'bidGigPoster',
-                                                            select: 'userName'
                                                         }
                                                     ]
                                                 })
