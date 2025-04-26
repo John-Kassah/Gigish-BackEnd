@@ -6,6 +6,10 @@ const bidSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    bidder: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     bidStatus: {
         type: String,
         enum: ['pending', 'accepted', 'rejected'],
