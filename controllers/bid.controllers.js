@@ -20,8 +20,7 @@ export const createBid = async (req, res) => {
             serviceProviderBidPrice: newBid.serviceProviderBidPrice,
             bidStatus: newBid.bidStatus,
             bidDate: newBid.bidDate,
-            gigTheBidWasMadeOn: newBid.bidGig,
-            posterOfTheGigTheBidWasMadeOn: newBid.bidGigPoster
+            gigTheBidWasMadeOn: newBid.bidGig
         }
 
         // Add the new bid to the gig's gigbids array
