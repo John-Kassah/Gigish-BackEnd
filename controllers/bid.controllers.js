@@ -15,12 +15,16 @@ export const createBid = async (req, res) => {
             bidder: userId,
         });
 
+        const bidder = await userModel.findById(userId)
+                .select('userName email password profileImageUrl isVerified') 
+
         const sanitizedBid = {
             bidId: newBid._id,
             serviceProviderBidPrice: newBid.serviceProviderBidPrice,
             bidStatus: newBid.bidStatus,
             bidDate: newBid.bidDate,
-            gigTheBidWasMadeOn: newBid.bidGig
+            gigTheBidWasMadeOn: newBid.bidGig,
+            bidder: bidder
         }
 
         // Add the new bid to the gig's gigbids array
