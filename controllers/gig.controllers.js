@@ -5,10 +5,10 @@ import { userModel } from "../models/user.model.js";
 export const createGig = async (req, res) => {
     try {
         // Validate the request body using the gigValidator
-        const {error, value} = gigValidator.validate(req.body);
+        const { error, value } = gigValidator.validate(req.body);
         if (error) {
             return res.status(400).json(`Kindly check the request body for the following errors: ${error.details.map(err => err.message).join(', ')}`);
-        } 
+        }
         // If the validation passes, proceed to extract the gig info from the request body
 
         // Extract the gig info from the request body
@@ -45,7 +45,7 @@ export const createGig = async (req, res) => {
         // This will create a relationship between the gig and the user that created it
         await userModel.findByIdAndUpdate(req.user.id, {
             $push: { gigs: modelGig.id }
-          });
+        });
 
         const sanitizedGig = {
             name: modelGig.name,
@@ -73,49 +73,55 @@ export const viewGig = async (req, res) => {
     }
 }
 
-    const viewMyGigs = async (req, res) => {
-        const userId = req.user.id; // Get the userId from the request object field set in the auth middleware
-        try {
-            const user = await userModel.findById(userId)
-                                        .select('-bids')
-                                        .populate({
-                                            path: 'gigs',
-                                            select: '-gigPoster',
-                                            populate: {
-                                                path: 'gigBids' // This will populate the bids inside each gig
-                                                // I can also add select here if you want to exclude fields from the bids like this:
-                                                ,select: '-bidGig -bidGigPoster'
-                                            }
-                                        })
-                                        
-            
+const viewMyGigs = async (req, res) => {
+    const userId = req.user.id; // Get the userId from the request object field set in the auth middleware
+    try {
+        const user = await userModel.findById(userId)
+            .select('-bids')
+            .populate({
+                path: 'gigs',
+                select: '-gigPoster',
+                populate: [
+                    {
+                        path: 'gigBids' // This will populate the bids inside each gig
+                        // I can also add select here if you want to exclude fields from the bids like this:
+                        , select: '-bidGig'
+                    },
+                    {
+                        path: 'bidder'
+                        // , select: '-bidGig'
+                    }
+                ]
+            })
+
+
         if (!user) {
             res.status(404).json({ message: `User with ID: ${userId} was not found` });
             return;
         }
-            res.status(200).json({ message: "The users Gigs were retrieved successfully", data: user});
+        res.status(200).json({ message: "The users Gigs were retrieved successfully", data: user });
 
-        } catch (error) {
-            console.log(`This error was thrown in an attempt to retrieve the users Gigs: ${error.message}`);
-            res.status(500).json({ message: `This error was thrown in an attempt to retrieve the users Gigs: ${error.message}` });
-        }
+    } catch (error) {
+        console.log(`This error was thrown in an attempt to retrieve the users Gigs: ${error.message}`);
+        res.status(500).json({ message: `This error was thrown in an attempt to retrieve the users Gigs: ${error.message}` });
     }
+}
 
-    const viewGigsProvided = async (req, res) => {
-        try {
+const viewGigsProvided = async (req, res) => {
+    try {
 
-            const allGigs = await gigModel.find({})
-                .populate({
-                    path: 'gigPoster',
-                    select: '-_id -email -role -gigs -createdAt -updatedAt -verificationToken -bids -__v' // Exclude these fields from the populated user
-                }).select('-createdAt -updatedAt') // Exclude these fields from the gig model;
+        const allGigs = await gigModel.find({})
+            .populate({
+                path: 'gigPoster',
+                select: '-_id -email -role -gigs -createdAt -updatedAt -verificationToken -bids -__v' // Exclude these fields from the populated user
+            }).select('-createdAt -updatedAt') // Exclude these fields from the gig model;
 
-            res.status(200).json({ message: "All Gigs provided were retrieved successfully", data: allGigs});
-        } catch (error) {
-            console.log(`This error was thrown in an attempt to retrieve all users: ${error.message}`);
-            res.status(500).json({ message: `This error was thrown in an attempt to retrieve all users: ${error.message}` });
-        }
+        res.status(200).json({ message: "All Gigs provided were retrieved successfully", data: allGigs });
+    } catch (error) {
+        console.log(`This error was thrown in an attempt to retrieve all users: ${error.message}`);
+        res.status(500).json({ message: `This error was thrown in an attempt to retrieve all users: ${error.message}` });
     }
+}
 
 export const viewSingleGigbyId = async (req, res) => {
     const gigsId = req.params.gigId
@@ -130,13 +136,13 @@ export const viewSingleGigbyId = async (req, res) => {
             return res.status(404).json({ message: `User with ID: ${gigsId} was not found` });
         }
 
-        return res.status(200).json({ message: "The clicked gig was retrieved successfully", data: singleGig});
+        return res.status(200).json({ message: "The clicked gig was retrieved successfully", data: singleGig });
 
     } catch (error) {
         console.log(`This error was thrown in an attempt to retrieve all users: ${error.message}`);
         return res.status(500).json({ message: `This error was thrown in an attempt to retrieve all users: ${error.message}` });
     }
-    }
+}
 
 export const deleteGig = async (req, res) => {
     try {
