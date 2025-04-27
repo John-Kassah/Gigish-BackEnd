@@ -78,7 +78,7 @@ const viewMyGigs = async (req, res) => {
     const userId = req.user.id; // Get the userId from the request object field set in the auth middleware
     try {
         // 1️⃣ Fetch all gigs
-        const gigs = await gigModel.find()
+        const gigs = await gigModel.find({gigPoster: userId})
             // 2️⃣ Bring back the poster’s core details
             .populate({
                 path: 'gigPoster',
