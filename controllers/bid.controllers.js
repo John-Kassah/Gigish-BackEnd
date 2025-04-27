@@ -10,6 +10,7 @@ export const createBid = async (req, res) => {
 
     const bidGigPoster = gigModel.findById(gigId)
         .select('gigPoster')
+    console.log(bidGigPoster)
 
     try { 
         const newBid = await bidModel.create({
