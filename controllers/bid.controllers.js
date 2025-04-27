@@ -122,7 +122,7 @@ export const acceptBid = async (req, res) => {
         try {
             // To ensure that the user is accepting a bid they are authorized to accept, find the bid using the users ID and the Bids ID. If a bid is retrieved with these fields then the user is authorized to operate on the bid.
             const acceptedBid = await bidModel.findOneAndUpdate(
-                {_id: bidId, bidGigPoster: req.user.id}, 
+                {_id: bidId}, //correct this later so it will ensure you can only accept bids your own gigs only
                 {bidStatus: 'accepted'}, 
                 {new: true}
             );
