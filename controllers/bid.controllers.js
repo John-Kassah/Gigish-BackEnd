@@ -66,7 +66,7 @@ export const viewBids = async (req, res) => {
         const userId = req.user.id; // Get the userId from the request object field set in the auth middleware
 
         try {
-            const bids = await bidModel.find({ bidGigPoster: userId })
+            const bids = await bidModel.find({ bidder: userId })
                          .populate({
                             path: 'bidGig',
                             select: '-createdAt -updatedAt -__v -gigBids'
