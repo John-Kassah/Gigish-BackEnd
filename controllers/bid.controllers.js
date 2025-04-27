@@ -67,13 +67,7 @@ export const viewBids = async (req, res) => {
 
         try {
             const bids = await bidModel.find({ bidder: userId })
-                         .populate({
-                            path: 'bidGig',
-                            select: '-createdAt -updatedAt -__v -gigBids'
-                         })
-                         .populate({
-                            path: 'bidder'
-                         })
+                         
                 console.log(bids)
                                                 
                 if (!bids) {
