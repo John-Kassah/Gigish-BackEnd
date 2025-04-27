@@ -8,7 +8,7 @@ export const createBid = async (req, res) => {
     const gigId = req.params.gigId; // Get the gigId from the request parameters
     const userId = req.user.id; // Get the userId from the request object user field set in the auth middleware
 
-    const bidGigPoster = gigModel.findById(gigId)
+    const bidGigPoster = await gigModel.findById(gigId)
         
     console.log(`we got: ${bidGigPoster}`)
 
