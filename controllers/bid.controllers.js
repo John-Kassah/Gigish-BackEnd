@@ -8,11 +8,15 @@ export const createBid = async (req, res) => {
     const gigId = req.params.gigId; // Get the gigId from the request parameters
     const userId = req.user.id; // Get the userId from the request object user field set in the auth middleware
 
+    const bidGigPoster = gigModel.findById(gigId)
+        .select('gigPoster')
+
     try { 
         const newBid = await bidModel.create({
             serviceProviderBidPrice,
             bidGig: gigId,
             bidder: userId,
+            bidGigPoster: bidGigPoster
         });
 
         const bidder = await userModel.findById(userId)
@@ -66,7 +70,7 @@ export const viewBids = async (req, res) => {
         const userId = req.user.id; // Get the userId from the request object field set in the auth middleware
 
         try {
-            const bids = await bidModel.find()
+            const bids = await bidModel.find({ bidGigPoster: userId })
                          .populate({
                             path: 'bidGig',
                             select: '-createdAt -updatedAt -__v -gigBids'
