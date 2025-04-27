@@ -67,7 +67,7 @@ export const createGig = async (req, res) => {
 }
 
 export const viewGig = async (req, res) => {
-    if (req.body.role === 'gigPoster') {
+    if (req.user.role === 'gigPoster') {
         viewMyGigs(req, res);
     } else {
         viewGigsProvided(req, res);
@@ -78,7 +78,7 @@ const viewMyGigs = async (req, res) => {
     const userId = req.user.id; // Get the userId from the request object field set in the auth middleware
     try {
         // 1️⃣ Fetch all gigs
-        const gigs = await gigModel.find({gigPoster: userId})
+        const gigs = await gigModel.find({ gigPoster: userId })
             // 2️⃣ Bring back the poster’s core details
             .populate({
                 path: 'gigPoster',
