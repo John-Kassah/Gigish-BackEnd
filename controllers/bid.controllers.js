@@ -83,6 +83,7 @@ export const viewBids = async (req, res) => {
                             path: 'bidder'
                          })
                 console.log(bids)
+                console.log('The user id is:', userId)
                                                 
                 if (!bids) {
                     res.status(404).json({ message: `No bids available` });
