@@ -9,8 +9,8 @@ export const createBid = async (req, res) => {
     const userId = req.user.id; // Get the userId from the request object user field set in the auth middleware
 
     const bidGigPoster = gigModel.findById(gigId)
-        .select('gigPoster')
-    console.log(bidGigPoster)
+        
+    console.log(`we got: ${bidGigPoster}`)
 
     try { 
         const newBid = await bidModel.create({
