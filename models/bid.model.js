@@ -24,6 +24,10 @@ const bidSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Gig',
         required: true,
+    },
+    bidGigPoster: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
