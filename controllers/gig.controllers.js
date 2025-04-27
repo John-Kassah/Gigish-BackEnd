@@ -1,6 +1,7 @@
 import { gigModel } from "../models/gig.model.js";
 import { gigValidator } from "../validators/gig.validator.js";
 import { userModel } from "../models/user.model.js";
+import { populate } from "dotenv";
 
 export const createGig = async (req, res) => {
     try {
@@ -81,17 +82,15 @@ const viewMyGigs = async (req, res) => {
             .populate({
                 path: 'gigs',
                 select: '-gigPoster',
-                populate: [
-                    {
+                populate: {
                         path: 'gigBids' // This will populate the bids inside each gig
                         // I can also add select here if you want to exclude fields from the bids like this:
-                        , select: '-bidGig'
-                    },
-                    {
-                        path: 'bidder'
-                        // , select: '-bidGig'
+                        , select: '-bidGig',
+                        populate: {
+                                path: 'bidder',
+                                select: 'userName email profileImageUrl isVerified'
+                            }
                     }
-                ]
             })
 
 
