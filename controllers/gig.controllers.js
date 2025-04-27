@@ -78,21 +78,24 @@ const viewMyGigs = async (req, res) => {
     const userId = req.user.id; // Get the userId from the request object field set in the auth middleware
     try {
         const user = await userModel.findById(userId)
-            .select('-bids')
-            .populate({
+        .select('-bids')
+        .populate([
+            {
                 path: 'gigs',
                 select: '-gigPoster',
-                populate: {
-                        path: 'gigBids' // This will populate the bids inside each gig
+                populate: [
+                    {
+                        path: 'gigBids',// This will populate the bids inside each gig
                         // I can also add select here if you want to exclude fields from the bids like this:
-                        , select: '-bidGig',
+                        select: '-bidGig',
                         populate: {
-                                path: 'bidder',
-                                select: 'userName email profileImageUrl isVerified'
-                            }
+                            path: 'bidder',
+                            select: 'userName email profileImageUrl isVerified'
+                        }
                     }
-            })
-
+                ]
+            }
+        ]);
 
         if (!user) {
             res.status(404).json({ message: `User with ID: ${userId} was not found` });
