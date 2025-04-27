@@ -94,11 +94,11 @@ const viewMyGigs = async (req, res) => {
                 }
             });
 
-        if (!user) {
+        if (!gigs) {
             res.status(404).json({ message: `User with ID: ${userId} was not found` });
             return;
         }
-        res.status(200).json({ message: "The users Gigs were retrieved successfully", data: user });
+        res.status(200).json({ message: "The users Gigs were retrieved successfully", data: gigs });
 
     } catch (error) {
         console.log(`This error was thrown in an attempt to retrieve the users Gigs: ${error.message}`);
