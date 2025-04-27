@@ -191,7 +191,7 @@ export const updateUser = async (req, res) => {
     try {
          await userModel
         .findByIdAndUpdate(id, newUserUpdates, { new: true });
-        res.status(200).json({message: "The update was a success", data: `Updates: changed to ${JSON.stringify(newUserUpdates, null, 2)} Current User Data: ${await userModel.findById(id)}`});
+        res.status(200).json({message: "The update was a success", data: `Updates: Current User Data: ${await userModel.findById(id)}`});
     } catch (error) {
         res.status(500).json({message: `This error was thrown in an attempt to update user info: ${error.message}`});
     }
