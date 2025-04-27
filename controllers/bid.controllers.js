@@ -72,8 +72,9 @@ export const viewBids = async (req, res) => {
                             select: '-createdAt -updatedAt -__v -gigBids'
                          })
                          .populate({
-                            path: 'bidder',
+                            path: 'bidder'
                          })
+                console.log(bids)
                                                 
                 if (!bids) {
                     res.status(404).json({ message: `No bids available` });
